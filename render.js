@@ -33,4 +33,17 @@ d3.json("georef-canada-province.geojson", function(json) {
         .attr("d", path)
         .attr("fill", backgroundColor)
         .attr("stroke", borderColor);
+    d3.csv("CanadianPostalCodes.csv", function(data) {
+        console.log(data);
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+                .attr({
+                    cx: function(d) {return projection([d.Longitude, d.Latitude])[0];},
+                    cy: function(d) {return projection([d.Longitude, d.Latitude])[1];},
+                    r: 1,
+                    fill: "white"
+                })
+    })
 });
