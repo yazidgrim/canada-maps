@@ -2,7 +2,8 @@ var w = 1500;
 var h = 1000;
 
 var backgroundColor = "#252525";
-var borderColor = "#636363"
+var borderColor = "#636363";
+var postalCodeColor = "#969696"
 
 var projection = d3.geo.orthographic()
                     .clipAngle(180)
@@ -42,8 +43,9 @@ d3.json("georef-canada-province.geojson", function(json) {
                 .attr({
                     cx: function(d) {return projection([d.Longitude, d.Latitude])[0];},
                     cy: function(d) {return projection([d.Longitude, d.Latitude])[1];},
-                    r: 1,
-                    fill: "white"
+                    r: 0.5,
+                    fill: postalCodeColor,
+                    opacity: 0.8
                 })
     })
 });
