@@ -5,7 +5,7 @@ var h = canvas.offsetHeight;
 
 var backgroundColor = "#252525";
 var borderColor = "#636363";
-var postalCodeColor = "#969696"
+var postalCodeColor = "#969696";
 
 var projection = d3.geoOrthographic()
                     .clipAngle(180)
@@ -32,11 +32,35 @@ d3.json("georef-canada-province.geojson").then(function(data) {
     ctx.stroke();
 });
 
-d3.csv("CanadianPostalCodes.csv").then(function(data) {
-    ctx.beginPath();
-    geoGenerator({type: 'Feature', geometry: {type: 'Point', coordinates: [106.3468,56.1304]}});
-    //pathGenerator(data);
-    ctx.fillStyle = postalCodeColor;
-    ctx.fill();
+var postalCodes = d3.select("#points");
 
-});
+function createMap(dataset) {
+    console.log("entered Create Map Function");
+    var dataBinding = postalCodes.selectAll("points.arc")
+                                    .data(dataset)
+                                    .enter()
+                                    .append("points")
+                                    .classed("arc", true)
+                                    .attr("x", function(d) {return projection([d.Longitude, d.Latitude])[0];})
+                                    .attr("y", function(d) {return projection([d.Longitude, d.Latitude])[1];})
+                                    .attr("radius", 8)
+                                    .attr("fillStyle", "#ff0000");
+    drawCanvas();
+
+}
+
+function drawCanvas() {
+    var elements = postalCodes.selectAll("points.arc");
+    elements.each(function(d) {
+        console.log(d);
+        var node = d3.select(this);
+
+        ctx.beginPath();
+        ctx.arc(node.attr("x"), node.attr("y"), node.attr("radius"), 0, 2 * Math.PI);
+        ctx.fillStyle = node.attr("fillStyle");
+        ctx.fill();
+        ctx.closePath();
+    })
+}
+
+d3.csv("CanadianPostalCodes.csv", function(error, dataset) {createMap(dataset);});
