@@ -1,0 +1,30 @@
+{
+  "name": "canada-maps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --output-path ./public",
+    "start": "webpack-dev-server --mode=development --static ./public --output-path ./public --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yazidgrim/canada-maps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yazidgrim/canada-maps/issues"
+  },
+  "homepage": "https://github.com/yazidgrim/canada-maps#readme",
+  "devDependencies": {
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  },
+  "dependencies": {
+    "deck.gl": "^8.6.5"
+  }
+}
